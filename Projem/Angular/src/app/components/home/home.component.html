@@ -1,0 +1,65 @@
+<br>
+   <div class="center">
+  <mat-card> <h1>Anasayfa</h1></mat-card>
+<mat-grid-list cols="1" rowHeight="750px">
+  <mat-grid-tile>
+    <img [src]="apiServis.siteUrl + '/Dosyalar/anasayfa.jpg'"style="width: 100%"/>
+
+  </mat-grid-tile>
+
+</mat-grid-list>
+
+  <mat-form-field appearance="outline">
+    <input matInput placeholder="Ara" (keyup)="UrunFiltrele($event)"/>
+  </mat-form-field>
+
+<mat-table [dataSource]="dataSource" class="mat-elevation-z10" matSort>
+  <ng-container matColumnDef="urunFoto">
+    <mat-header-cell *matHeaderCellDef> Ürün Foto
+    </mat-header-cell>
+    <mat-cell *matCellDef="let kayit">
+      <img [src]="apiServis.siteUrl + '/Dosyalar/' + kayit.urunFoto" style="width: 300px"/>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="urunAdi" >
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Ürün Adı
+    </mat-header-cell>
+    <mat-cell *matCellDef="let kayit"> {{kayit.urunAdi}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="urunFiyat">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Fiyat
+    </mat-header-cell>
+    <mat-cell *matCellDef="let kayit"> {{kayit.urunFiyat}} TL </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="urunAciklama">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Detaylar
+    </mat-header-cell>
+    <mat-cell *matCellDef="let kayit"> {{kayit.urunAciklama}} </mat-cell>
+  </ng-container>
+
+
+
+
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5,10, 15, 25]"
+    showFirstLastButtons
+    class="mat-elevation-z5"
+  >
+  </mat-paginator>
+</div>
+<head>
+  <style>
+      .center {
+          text-align: center;
+      }
+  </style>
+  </head>
+  <body>

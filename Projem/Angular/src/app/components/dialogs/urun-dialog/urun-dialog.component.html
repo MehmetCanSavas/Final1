@@ -1,0 +1,75 @@
+<mat-toolbar color="primary">
+  <span>{{ dialogBaslik }}</span>
+</mat-toolbar>
+
+<div class="container">
+  <form [formGroup]="frm">
+    <mat-form-field appearance="outline">
+      <mat-label>Ürün Adı</mat-label>
+      <input
+        matInput
+        placeholder="Ürün Adı"
+        formControlName="urunAdi"
+        name="urunAdi"
+        required
+        type="text"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Ürün Stok</mat-label>
+      <input
+        matInput
+        placeholder="Ürün Adet"
+        formControlName="urunAdet"
+        name="urunAdet"
+        required
+        type="text"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Ürün Fiyatı</mat-label>
+      <input
+        matInput
+        placeholder="Ürün Fiyat"
+        formControlName="urunFiyat"
+        name="urunFiyat"
+        required
+        type="text"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Ürün Açıklama</mat-label>
+      <input
+        matInput
+        placeholder="Ürün Açıklama"
+        formControlName="urunAciklama"
+        name="urunAciklama"
+        required
+        type="text"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Ürün Kategori Adı</mat-label>
+      <mat-select formControlName="urunKatId" placeholder="Ürün Kategori Adı">
+        <mat-option
+          [value]="kategori.katId" *ngFor="let kategori of kategoriler">{{ kategori.katId}} {{kategori.katAdi}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Ürün Marka Adı</mat-label>
+      <mat-select formControlName="urunMarkaId" placeholder="Ürün Marka Adı">
+        <mat-option
+          [value]="marka.markaId" *ngFor="let marka of markalar">{{ marka.markaId}} {{marka.markaAdi}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+  </form>
+
+  <button
+    mat-stroked-button    color="primary"    [disabled]="frm.invalid"    (click)="dialogRef.close(frm.value)">Kaydet</button
+  >&nbsp;
+  <button mat-stroked-button color="primary" (click)="dialogRef.close()">    İptal </button>
+</div>

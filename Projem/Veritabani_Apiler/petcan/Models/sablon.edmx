@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="kategori">
+          <Key>
+            <PropertyRef Name="katId" />
+          </Key>
+          <Property Name="katId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="katAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="markalar">
+          <Key>
+            <PropertyRef Name="markaId" />
+          </Key>
+          <Property Name="markaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="markaAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="siparis">
+          <Key>
+            <PropertyRef Name="siparisId" />
+          </Key>
+          <Property Name="siparisId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="siparisUyeId" Type="int" Nullable="false" />
+          <Property Name="siparisTarih" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="siparisKod" Type="int" Nullable="false" />
+          <Property Name="siparisUrunId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="urunler">
+          <Key>
+            <PropertyRef Name="urunId" />
+          </Key>
+          <Property Name="urunId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="urunAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="urunFiyat" Type="numeric" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="urunAciklama" Type="text" Nullable="false" />
+          <Property Name="urunAdet" Type="int" Nullable="false" />
+          <Property Name="urunFoto" Type="text" Nullable="false" />
+          <Property Name="urunKatId" Type="int" Nullable="false" />
+          <Property Name="urunMarkaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="uyeler">
+          <Key>
+            <PropertyRef Name="uyeId" />
+          </Key>
+          <Property Name="uyeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="uyeAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="uyeSoyadi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="uyeTelefon" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="uyeMail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="uyeKulAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="uyeSifre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="uyeAdres" Type="text" Nullable="false" />
+          <Property Name="uyeYetki" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_siparis_ToUrunler">
+          <End Role="urunler" Type="Self.urunler" Multiplicity="1" />
+          <End Role="siparis" Type="Self.siparis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="urunler">
+              <PropertyRef Name="urunId" />
+            </Principal>
+            <Dependent Role="siparis">
+              <PropertyRef Name="siparisUrunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_siparis_ToUyeler">
+          <End Role="uyeler" Type="Self.uyeler" Multiplicity="1" />
+          <End Role="siparis" Type="Self.siparis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uyeler">
+              <PropertyRef Name="uyeId" />
+            </Principal>
+            <Dependent Role="siparis">
+              <PropertyRef Name="siparisUyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_urunler_ToKategori">
+          <End Role="kategori" Type="Self.kategori" Multiplicity="1" />
+          <End Role="urunler" Type="Self.urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kategori">
+              <PropertyRef Name="katId" />
+            </Principal>
+            <Dependent Role="urunler">
+              <PropertyRef Name="urunKatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_urunler_ToMarka">
+          <End Role="markalar" Type="Self.markalar" Multiplicity="1" />
+          <End Role="urunler" Type="Self.urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="markalar">
+              <PropertyRef Name="markaId" />
+            </Principal>
+            <Dependent Role="urunler">
+              <PropertyRef Name="urunMarkaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1ModelStoreContainer">
+          <EntitySet Name="kategori" EntityType="Self.kategori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="markalar" EntityType="Self.markalar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="siparis" EntityType="Self.siparis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="urunler" EntityType="Self.urunler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="uyeler" EntityType="Self.uyeler" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_siparis_ToUrunler" Association="Self.FK_siparis_ToUrunler">
+            <End Role="urunler" EntitySet="urunler" />
+            <End Role="siparis" EntitySet="siparis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_siparis_ToUyeler" Association="Self.FK_siparis_ToUyeler">
+            <End Role="uyeler" EntitySet="uyeler" />
+            <End Role="siparis" EntitySet="siparis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_urunler_ToKategori" Association="Self.FK_urunler_ToKategori">
+            <End Role="kategori" EntitySet="kategori" />
+            <End Role="urunler" EntitySet="urunler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_urunler_ToMarka" Association="Self.FK_urunler_ToMarka">
+            <End Role="markalar" EntitySet="markalar" />
+            <End Role="urunler" EntitySet="urunler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="kategori" EntityType="Database1Model.kategori" />
+          <EntitySet Name="markalar" EntityType="Database1Model.markalar" />
+          <EntitySet Name="siparis" EntityType="Database1Model.siparis" />
+          <EntitySet Name="urunler" EntityType="Database1Model.urunler" />
+          <EntitySet Name="uyeler" EntityType="Database1Model.uyeler" />
+          <AssociationSet Name="FK_urunler_ToKategori" Association="Database1Model.FK_urunler_ToKategori">
+            <End Role="kategori" EntitySet="kategori" />
+            <End Role="urunler" EntitySet="urunler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_urunler_ToMarka" Association="Database1Model.FK_urunler_ToMarka">
+            <End Role="markalar" EntitySet="markalar" />
+            <End Role="urunler" EntitySet="urunler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_siparis_ToUrunler" Association="Database1Model.FK_siparis_ToUrunler">
+            <End Role="urunler" EntitySet="urunler" />
+            <End Role="siparis" EntitySet="siparis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_siparis_ToUyeler" Association="Database1Model.FK_siparis_ToUyeler">
+            <End Role="uyeler" EntitySet="uyeler" />
+            <End Role="siparis" EntitySet="siparis" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="kategori">
+          <Key>
+            <PropertyRef Name="katId" />
+          </Key>
+          <Property Name="katId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="katAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="urunler" Relationship="Database1Model.FK_urunler_ToKategori" FromRole="kategori" ToRole="urunler" />
+        </EntityType>
+        <EntityType Name="markalar">
+          <Key>
+            <PropertyRef Name="markaId" />
+          </Key>
+          <Property Name="markaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="markaAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="urunler" Relationship="Database1Model.FK_urunler_ToMarka" FromRole="markalar" ToRole="urunler" />
+        </EntityType>
+        <EntityType Name="siparis">
+          <Key>
+            <PropertyRef Name="siparisId" />
+          </Key>
+          <Property Name="siparisId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="siparisUyeId" Type="Int32" Nullable="false" />
+          <Property Name="siparisTarih" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="siparisKod" Type="Int32" Nullable="false" />
+          <Property Name="siparisUrunId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="urunler" Relationship="Database1Model.FK_siparis_ToUrunler" FromRole="siparis" ToRole="urunler" />
+          <NavigationProperty Name="uyeler" Relationship="Database1Model.FK_siparis_ToUyeler" FromRole="siparis" ToRole="uyeler" />
+        </EntityType>
+        <EntityType Name="urunler">
+          <Key>
+            <PropertyRef Name="urunId" />
+          </Key>
+          <Property Name="urunId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="urunAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="urunFiyat" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="urunAciklama" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="urunAdet" Type="Int32" Nullable="false" />
+          <Property Name="urunFoto" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="urunKatId" Type="Int32" Nullable="false" />
+          <Property Name="urunMarkaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="kategori" Relationship="Database1Model.FK_urunler_ToKategori" FromRole="urunler" ToRole="kategori" />
+          <NavigationProperty Name="markalar" Relationship="Database1Model.FK_urunler_ToMarka" FromRole="urunler" ToRole="markalar" />
+          <NavigationProperty Name="siparis" Relationship="Database1Model.FK_siparis_ToUrunler" FromRole="urunler" ToRole="siparis" />
+        </EntityType>
+        <EntityType Name="uyeler">
+          <Key>
+            <PropertyRef Name="uyeId" />
+          </Key>
+          <Property Name="uyeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="uyeAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="uyeSoyadi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="uyeTelefon" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="uyeMail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="uyeKulAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="uyeSifre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="uyeAdres" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="uyeYetki" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="siparis" Relationship="Database1Model.FK_siparis_ToUyeler" FromRole="uyeler" ToRole="siparis" />
+        </EntityType>
+        <Association Name="FK_urunler_ToKategori">
+          <End Type="Database1Model.kategori" Role="kategori" Multiplicity="1" />
+          <End Type="Database1Model.urunler" Role="urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kategori">
+              <PropertyRef Name="katId" />
+            </Principal>
+            <Dependent Role="urunler">
+              <PropertyRef Name="urunKatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_urunler_ToMarka">
+          <End Type="Database1Model.markalar" Role="markalar" Multiplicity="1" />
+          <End Type="Database1Model.urunler" Role="urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="markalar">
+              <PropertyRef Name="markaId" />
+            </Principal>
+            <Dependent Role="urunler">
+              <PropertyRef Name="urunMarkaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_siparis_ToUrunler">
+          <End Type="Database1Model.urunler" Role="urunler" Multiplicity="1" />
+          <End Type="Database1Model.siparis" Role="siparis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="urunler">
+              <PropertyRef Name="urunId" />
+            </Principal>
+            <Dependent Role="siparis">
+              <PropertyRef Name="siparisUrunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_siparis_ToUyeler">
+          <End Type="Database1Model.uyeler" Role="uyeler" Multiplicity="1" />
+          <End Type="Database1Model.siparis" Role="siparis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uyeler">
+              <PropertyRef Name="uyeId" />
+            </Principal>
+            <Dependent Role="siparis">
+              <PropertyRef Name="siparisUyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities">
+          <EntitySetMapping Name="kategori">
+            <EntityTypeMapping TypeName="Database1Model.kategori">
+              <MappingFragment StoreEntitySet="kategori">
+                <ScalarProperty Name="katAdi" ColumnName="katAdi" />
+                <ScalarProperty Name="katId" ColumnName="katId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="markalar">
+            <EntityTypeMapping TypeName="Database1Model.markalar">
+              <MappingFragment StoreEntitySet="markalar">
+                <ScalarProperty Name="markaAdi" ColumnName="markaAdi" />
+                <ScalarProperty Name="markaId" ColumnName="markaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="siparis">
+            <EntityTypeMapping TypeName="Database1Model.siparis">
+              <MappingFragment StoreEntitySet="siparis">
+                <ScalarProperty Name="siparisUrunId" ColumnName="siparisUrunId" />
+                <ScalarProperty Name="siparisKod" ColumnName="siparisKod" />
+                <ScalarProperty Name="siparisTarih" ColumnName="siparisTarih" />
+                <ScalarProperty Name="siparisUyeId" ColumnName="siparisUyeId" />
+                <ScalarProperty Name="siparisId" ColumnName="siparisId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="urunler">
+            <EntityTypeMapping TypeName="Database1Model.urunler">
+              <MappingFragment StoreEntitySet="urunler">
+                <ScalarProperty Name="urunMarkaId" ColumnName="urunMarkaId" />
+                <ScalarProperty Name="urunKatId" ColumnName="urunKatId" />
+                <ScalarProperty Name="urunFoto" ColumnName="urunFoto" />
+                <ScalarProperty Name="urunAdet" ColumnName="urunAdet" />
+                <ScalarProperty Name="urunAciklama" ColumnName="urunAciklama" />
+                <ScalarProperty Name="urunFiyat" ColumnName="urunFiyat" />
+                <ScalarProperty Name="urunAdi" ColumnName="urunAdi" />
+                <ScalarProperty Name="urunId" ColumnName="urunId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="uyeler">
+            <EntityTypeMapping TypeName="Database1Model.uyeler">
+              <MappingFragment StoreEntitySet="uyeler">
+                <ScalarProperty Name="uyeYetki" ColumnName="uyeYetki" />
+                <ScalarProperty Name="uyeAdres" ColumnName="uyeAdres" />
+                <ScalarProperty Name="uyeSifre" ColumnName="uyeSifre" />
+                <ScalarProperty Name="uyeKulAdi" ColumnName="uyeKulAdi" />
+                <ScalarProperty Name="uyeMail" ColumnName="uyeMail" />
+                <ScalarProperty Name="uyeTelefon" ColumnName="uyeTelefon" />
+                <ScalarProperty Name="uyeSoyadi" ColumnName="uyeSoyadi" />
+                <ScalarProperty Name="uyeAdi" ColumnName="uyeAdi" />
+                <ScalarProperty Name="uyeId" ColumnName="uyeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

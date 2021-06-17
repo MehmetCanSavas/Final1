@@ -1,0 +1,29 @@
+<div class="container" *ngIf="yetkiKontrol()">
+    <h1>Sipariş Bilgisi</h1>
+
+    <h3>
+        <button mat-stroked-button color="primary" (click)="Duzenle(secSip)">Düzenle</button> &nbsp;
+        <button mat-stroked-button color="warn" (click)="Sil(secSip)">Sil</button>
+    </h3>
+
+    <h3><b>Sipariş Id : </b>{{ secSip?.siparisId }}</h3>
+    <h3><b>Sipariş Uye Id : </b>{{ secSip?.siparisUyeId }}</h3>
+    <h3><b>Sipariş Tarih : </b>{{ secSip?.siparisTarih }}</h3>
+    <h3><b>Sipariş Urun Id : </b>{{ secSip?.siparisUrunId }}</h3>
+    <h3><b>Sipariş Veren Adi : </b>{{ secSip?.siparisVerenAdi }}</h3>
+    <h3><b>Sipariş Veren Soyadi : </b>{{ secSip?.siparisVerenSoyadi }}</h3>
+    <h3><b>Sipariş Veren Adres : </b>{{ secSip?.siparisVerenAdres }}</h3>
+    <h3><b>Sipariş Veren Uye Telefon : </b>{{ secSip?.siparisVerenUyeTelefon }}</h3>
+    <h3><b>Sipariş Veren Uye Mail : </b>{{ secSip?.siparisVerenUyeMail }}</h3>
+    <h3><b>Sipariş Urun Adi : </b>{{ secSip?.siparisUrunAdi }}</h3>
+    <h3><b>Sipariş Urun Fiyati Adi : </b>{{ secSip?.siparisUrunFiyati }}</h3>
+    <h3><b>Sipariş Urun Aciklama : </b>{{ secSip?.siparisUrunAciklama }}</h3>
+    <h3><b>Sipariş Urun Adet : </b>{{ secSip?.siparisUrunAdet }}</h3>
+    <h3><b>Sipariş Urun Marka Adi : </b>{{ secSip?.siparisUrunMarkaAdi }}</h3>
+    <h3><b>Sipariş Urun Urun Kategori Adi : </b>{{ secSip?.siparisUrunKategoriAdi }}</h3>
+
+    <p>&nbsp;</p>
+
+    <button mat-stroked-button color="primary" [routerLink]="['/admin/siparisler']">Geri</button>
+</div>
+

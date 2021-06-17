@@ -1,0 +1,20 @@
+<div class="container" *ngIf="yetkiKontrol()">
+    <h1>Kategori Bilgisi</h1>
+
+    <h3>
+        <button mat-stroked-button color="primary" (click)="Duzenle(secKategori)">Düzenle</button> &nbsp;
+        <button mat-stroked-button color="warn" (click)="Sil(secKategori)">Sil</button>
+    </h3>
+
+    <h3><b>Kategori Id : </b>{{ secKategori?.katId }}</h3>
+    <h3><b>Kategori Adı : </b>{{ secKategori?.katAdi }}</h3>
+    <h3><b>Kategori Ürün Sayısı : </b>{{ secKategori?.katUrunAdet }}</h3>
+
+    <p>&nbsp;</p>
+
+
+
+
+    <button mat-stroked-button color="primary" ,[routerLink]="['/admin/kategoriler']">Geri</button>
+
+</div>

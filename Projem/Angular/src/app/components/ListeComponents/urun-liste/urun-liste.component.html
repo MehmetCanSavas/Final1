@@ -1,0 +1,24 @@
+<div class="container" *ngIf="yetkiKontrol()">
+    <h1>Ürün Bilgisi</h1>
+
+    <h3>
+        <button mat-stroked-button color="primary" (click)="Duzenle(secUrun)">Düzenle</button> &nbsp;
+        <button mat-stroked-button color="warn" (click)="Sil(secUrun)">Sil</button>
+    </h3>
+
+    <h3><img [src]="apiServis.siteUrl + '/Dosyalar/' + secUrun?.urunFoto" style="width: 300px" /></h3>
+    <h3><b>Ürün Id : </b>{{ secUrun?.urunId }}</h3>
+    <h3><b>Ürün Adi : </b>{{ secUrun?.urunAdi }}</h3>
+    <h3><b>Ürün Kategori Id : </b>{{ secUrun?.urunKatId }}</h3>
+    <h3><b>Ürün Kategori Adı : </b>{{ secUrun?.urunKatAdi }}</h3>
+    <h3><b>Ürün Fiyat : </b>{{ secUrun?.urunFiyat }}</h3>
+    <h3><b>Ürün urun Marka Id : </b>{{ secUrun?.urunMarkaId }}</h3>
+    <h3><b>Ürün Foto : </b>{{ secUrun?.urunFoto }}</h3>
+    <h3><b>Ürün Aciklama : </b>{{ secUrun?.urunAciklama }}</h3>
+    <h3><b>Ürün Adet : </b>{{ secUrun?.urunAdet }}</h3>
+
+    <p>&nbsp;</p>
+
+    <button mat-stroked-button color="primary" [routerLink]="['/admin/urunler']">Geri</button>
+</div>
+
